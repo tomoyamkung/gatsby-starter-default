@@ -1,0 +1,22 @@
+$header-font-size: 3.0rem;
+
+header {
+    background: rebeccapurple;
+    margin-bottom: 1.45rem;
+}
+div {
+    margin: 0 auto;
+    maxWidth: 960;
+    padding: 1.45rem 1.0875rem;
+
+}
+h1 {
+    margin: 0;
+}
+a {
+    color: white;
+    text-decoration: none;
+}
+.title {
+    font-size: $header-font-size;
+}

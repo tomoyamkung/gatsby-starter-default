@@ -112,3 +112,37 @@ Header.defaultProps = {
 
 export default Header
 ```
+
+### CSS Modules を適用した header タグのスタイルを SCSS に変更
+
+`yarn add node-sass gatsby-plugin-sass` で必要なパッケージをインストール。
+
+header.module.css をコピーして header.modules.scss を作成。CSS からの変更点は header のフォントサイズを変数に切り出しただけ。
+
+```scss
+$header-font-size: 3.0rem;
+
+header {
+    background: rebeccapurple;
+    margin-bottom: 1.45rem;
+}
+div {
+    margin: 0 auto;
+    maxWidth: 960;
+    padding: 1.45rem 1.0875rem;
+
+}
+h1 {
+    margin: 0;
+}
+a {
+    color: white;
+    text-decoration: none;
+}
+.title {
+    font-size: $header-font-size;
+}
+```
+
+フォントサイズを `3.0rem` から変更すると、変更した値でフォントサイズが変更することを確認済み。
+
