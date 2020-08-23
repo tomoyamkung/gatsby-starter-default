@@ -52,3 +52,63 @@ To create a production build, use gatsby build
 success Building development bundle - 16.326s
 ```
 
+## 試したこと
+
+### header タグのスタイルに CSS Modules を適用
+
+header.modules.css を作成。  
+header タグの a タグに title クラスを適用する。
+
+```css
+header {
+    background: rebeccapurple;
+    margin-bottom: 1.45rem;
+}
+div {
+    margin: 0 auto;
+    maxWidth: 960;
+    padding: 1.45rem 1.0875rem;
+
+}
+h1 {
+    margin: 0;
+}
+a {
+    color: white;
+    text-decoration: none;
+}
+.title {
+    font-size: 3.0rem;
+}
+```
+
+これを適用する header.js にはインラインに CSS が書かれていたが取り払った。
+
+```js
+import { Link } from "gatsby"
+import PropTypes from "prop-types"
+import React from "react"
+import styles from "./header.module.css"
+
+const Header = ({ siteTitle }) => (
+  <header>
+    <div>
+      <h1>
+        <Link className={styles.title} to="/" >
+          {siteTitle}
+        </Link>
+      </h1>
+    </div>
+  </header>
+)
+
+Header.propTypes = {
+  siteTitle: PropTypes.string,
+}
+
+Header.defaultProps = {
+  siteTitle: ``,
+}
+
+export default Header
+```
