@@ -146,3 +146,22 @@ a {
 
 フォントサイズを `3.0rem` から変更すると、変更した値でフォントサイズが変更することを確認済み。
 
+### グローバルにスタイルを適用する
+
+※例が悪いかもしれない。  
+サイト全体に適用する src/styles/global.scss を作成。
+
+```scss
+main p {
+    font-family: "Hiragino Kaku Gothic ProN", Meiryo, "Helvetica Neue", Arial, "Hiragino Sans", sans-serif;
+}
+```
+
+サイト全体に適用するので global-browser.js に以下を追記。
+
+```js
+import "./src/styles/global.scss"
+```
+
+これで main タグ内の p タグに `font-family` が適用される。  
+CSS Module 化が難しい場合は従来の方式であるこの方法てサイトにスタイルが適用できる。
