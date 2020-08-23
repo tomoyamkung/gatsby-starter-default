@@ -1,0 +1,13 @@
+version: "3.7"
+
+services:
+  gatsby:
+    build: .
+    container_name: gatsby-starter-default
+    environment:
+      - NODE_ENV=development
+    ports:
+      - "8000:8000"
+    tty: true
+    volumes:
+      - $PWD:/home/dev/gatsby-starter-default
