@@ -165,3 +165,83 @@ import "./src/styles/global.scss"
 
 これで main タグ内の p タグに `font-family` が適用される。  
 CSS Module 化が難しい場合は従来の方式であるこの方法てサイトにスタイルが適用できる。
+
+### Markdown からコンテンツを生成する
+
+`yarn add gatsby-transformer-remark` を実行してプラグイン gatsby-transformer-remark をインストール。  
+gatsby-config.js に以下を追加。
+
+```sh
+success Checking for changed pages - 0.004s
+diff --git a/gatsby-starter-defalut/gatsby-config.js b/gatsby-starter-defalut/gatsby-config.js
+index d2efe84..ea68516 100644
+--- a/gatsby-starter-defalut/gatsby-config.js
++++ b/gatsby-starter-defalut/gatsby-config.js
+@@ -13,6 +13,13 @@ module.exports = {
+         name: `images`,
+         path: `${__dirname}/src/images`,
+       },
++      options: {
++        name: `information`,
++          path: `${__dirname}/src/content`,
++      },
++    },
++    {
++      resolve: `gatsby-transformer-remark`,
+     },
+     `gatsby-transformer-sharp`,
+     `gatsby-plugin-sharp`,
+```
+
+これで src/content/ ディレクトリ配下の Markdown ファイルをコンテンツとして取り込むようになる。
+
+このコンテンツは GraphQL で確認できる。
+
+```js
+query MyQuery {
+  allMarkdownRemark {
+    edges {
+      node {
+        frontmatter {
+          title
+          date(formatString: "YYYY年MM月DD日")
+        }
+        html
+      }
+    }
+  }
+}
+```
+
+このクエリを実行すると、以下の結果が取得できる。
+
+```js
+{
+  "data": {
+    "allMarkdownRemark": {
+      "edges": [
+        {
+          "node": {
+            "frontmatter": {
+              "title": "テストコンテンツ２",
+              "date": "2020年02月28日"
+            },
+            "html": "<p>テストコンテンツ２\nテストコンテンツ２ テストコンテンツ２\nテストコンテンツ２ テストコンテンツ２ テストコンテンツ２</p>"
+          }
+        },
+        {
+          "node": {
+            "frontmatter": {
+              "title": "テストコンテンツ",
+              "date": "2020年01月31日"
+            },
+            "html": "<p>テストコンテンツ\nテストコンテンツ テストコンテンツ\nテストコンテンツ テストコンテンツ テストコンテンツ</p>"
+          }
+        }
+      ]
+    }
+  },
+  "extensions": {}
+}
+```
+
